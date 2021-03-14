@@ -1,6 +1,6 @@
 # DepreciateIO
 
-My first Python Django project created for my Python class @ BCIT. 
+My first Python Django project created for my Python class at BCIT in 2019. 
 
 The idea of this application is to help users find the optimal time to sell their phone should they choose to upgrade.
 
