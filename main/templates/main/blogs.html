@@ -1,0 +1,26 @@
+{% extends "main/header.html"%}
+<head>
+    <title>Blogs</title>
+{% load static %}
+<!-- Prism CSS -->
+<link href="{% static "tinymce/css/prism.css" %}" rel="stylesheet">
+</head>
+
+{% block content %}
+  <div class="row">
+    {% for tut in blogs %}
+        <div class="">
+          <div class="card hoverable">
+            <div class="card-content">
+              <span class="card-title">{{tut.blog_title}}</span>
+              <p style="font-size:70%">Published {{tut.blog_published}}</p>
+                <br>
+              <p>{{tut.blog_content|safe}}</p>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+<!-- Prism JS -->
+<script src="{% static "tinymce/js/prism.js" %}"></script>

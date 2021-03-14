@@ -1,0 +1,82 @@
+{% extends "main/header.html"%}
+
+
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+  <div class="row">
+    <div class="col s6 offset-s3">
+      <div class="card red lighten-2">
+        <div class="card-content white-text">
+          <span class="card-title">Hello!</span>
+          <p>Welcome to Depreciate. We are a website that aims to help our users find the optimal time to sell their phone
+          based off of our depreciation statistics.</p>
+        </div>
+        <div class="card-action">
+          <a href="/register" style="color:white;">Register</a>
+          <a href="/login" style="color:white;">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+    {% if user.is_authenticated %}
+<div>
+	<form method="post">
+		{% csrf_token %}
+	{{phone}}
+        <button class="btn waves-effect waves-light" style="background-color:#ee6e73;" type="submit" name="action">Submit</button>
+	</form>
+</div><br><br><br><br>
+<div>
+    {% if result %}
+
+<script type="text/javascript">
+window.onload = function () {
+var chart = new CanvasJS.Chart("chartContainer",{
+	title:{
+		text: "Your Phone's Estimated Depreciation"
+	},
+	axisY: [
+	{
+		title: "PRICE",
+		lineColor: "#C24642",
+	}
+	],
+axisX: [
+	{
+		title: "YEAR",
+		lineColor: "#C24642",
+	}
+	],
+	data: [
+		{
+		type: "line",
+		axisYIndex: 1,
+		dataPoints: [
+		{% for x in result %}
+			{ x: {{x.year}}, y: {{x.price}}, label:{{x.year}} },
+			{%endfor%}
+		]
+		},
+	]
+});
+
+chart.render();
+}
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<div id="chartContainer" style="height: 300px; width: 100%;">
+</div>
+    {%endif%}
+</div>
+    {% endif %}
+<style>
+	select {
+    display: inherit;
+}
+</style>
+{% endblock %}
+
